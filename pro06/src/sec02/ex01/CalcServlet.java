@@ -45,7 +45,7 @@ public class CalcServlet extends HttpServlet {
 			String result = calculate(Float.parseFloat(won), operator);
 			pw.print("<html><font size=10>변환 결과</font><br>");
 			pw.print("<html><font size=10>" + result + "</font><br>");
-			pw.print("<a href='/pro06/calc'>환율 계산기</a>");
+			pw.print("<a href='/basicServlet/calc'>환율 계산기</a>");
 			
 			return;
 		}
