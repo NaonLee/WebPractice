@@ -14,4 +14,10 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<error-code>500</error-code>
 	<location>/err/error_500.jsp</location>
 </error-page>
+
+<welcome-file-list>
+	<welcome-file>/test02/main.jsp</welcome-file>
+	<welcome-file>/test02/add.jsp</welcome-file>
+	<welcome-file>/test02/add.html</welcome-file>
+</welcome-file-list>
 </web-app>
