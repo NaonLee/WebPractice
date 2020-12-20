@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax practice 3</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	function fn_process(){
+		var _id = $("#t_id").val();
+		if(_id == ''){
+			alert("Please enter the id");
+			return;
+		}
+		$.ajax({
+			type: "post",
+			async: false,
+			url: "http://localhost:8090/jqueryPractice/mem",
+			dataType: "text",
+			data: {id: _id},
+			success: function(data,textStatus){
+				if(data=='usable'){
+					$("#message").text("ID can be used.");
+					$("#btn_duplicate").prop("disabled", true);
+				} else{
+					$("#message").text("ID cannot be used.");
+				}
+			},
+			error:function(data, textStatus){
+				alert("Error has been occurred");
+			},
+			
+			complete:function(data,textStatus){
+				alert("End");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	ID: <input type="text" id="t_id">
+	<input type="button" id="btn_duplicate" value="Duplication check" onClick="fn_process()">
+	<div id="message"></div>
+</body>
+</html>

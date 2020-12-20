@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Selector practice 5</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function process(){
+		var value = $("#input").val();
+		$("#output").val(value);
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="input">
+	<input type="button" value="Enter" onClick="process()">
+	<div>
+		Result: <br>
+		<input type="text" id="output" disabled>
+	</div>
+</body>
+</html>
