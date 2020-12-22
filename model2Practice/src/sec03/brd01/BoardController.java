@@ -1,4 +1,4 @@
-package sec03.ex01;
+package sec03.brd01;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/board/*")
+//@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
 	ArticleVO articleVO;
 	BoardService boardService;
