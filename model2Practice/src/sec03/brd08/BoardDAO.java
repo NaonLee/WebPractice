@@ -204,22 +204,17 @@ public class BoardDAO {
 		
 		try {
 			con = dataFactory.getConnection();
-			String SQL = "UPDATE t_board set title=?, content=?";
+			String SQL = "UPDATE t_board set title=?, content=?, imageFileName=? where articleNo=?";
 			
-			if(imageFileName != null && imageFileName.length() != 0) {
-				SQL += ", imageFileName=?";
-			}
-			SQL += " where articleNo=?";
 			
 			System.out.println("SQL: " + SQL);
 			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			if(imageFileName != null && imageFileName.length() != 0) {
-				pstmt.setString(3, imageFileName);
-				pstmt.setInt(4, articleNo);
-			}
-			else pstmt.setInt(3, articleNo);
+			pstmt.setString(3, imageFileName);
+			pstmt.setInt(4, articleNo);
+
+
 			pstmt.executeUpdate();
 			
 			pstmt.close();

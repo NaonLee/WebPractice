@@ -89,7 +89,7 @@
 		<tr>
 			<td width="150" align="center" bgcolor="#FF9933">Writer ID</td>
 			<td>
-				<input type="text" value="${article.id}" name="writerId" id="i_writerId" disabled/>
+				<input type="text" value="${article.id}" name="id"  disabled/>
 			</td>
 		</tr>
 		<tr>

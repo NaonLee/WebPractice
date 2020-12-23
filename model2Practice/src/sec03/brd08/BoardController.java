@@ -137,36 +137,42 @@ public class BoardController extends HttpServlet {
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
-				String id = request.getParameter("writerId");
-
-
-				articleVO.setArticleNo(articleNo);
-				articleVO.setParentNo(0);
-				articleVO.setId("Ryu");
-				articleVO.setTitle(title);
-				articleVO.setContent(content);
-				articleVO.setImageFileName(imageFileName);
-				boardService.modArticle(articleVO);
+				String id = request.getParameter("id");
+				String id2 = articleMap.get("id");
+				System.out.println("id:" +id);
+				System.out.println("id2:" +id2);
 				
 				String originalFileName = articleMap.get("originalFileName");
-				if(imageFileName != null & imageFileName.length() != 0) {
-					
+				articleVO.setArticleNo(articleNo);
+				articleVO.setParentNo(0);
+				articleVO.setId(id);
+				articleVO.setTitle(title);
+				articleVO.setContent(content);
+				
+				System.out.println("image File Name:" +imageFileName);
+				System.out.println("originale File Name:" +originalFileName);
+				
+				if(originalFileName != null && originalFileName.length() !=0 && imageFileName == null) {
+					articleVO.setImageFileName(originalFileName);
+				} else {
+					articleVO.setImageFileName(imageFileName);
+				}
+				
+				boardService.modArticle(articleVO);
+				
+				if(imageFileName != null && imageFileName.length() != 0) {
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
 					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNo);
 					destDir.mkdirs();
 					
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-					
-					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + articleNo + "\\" + originalFileName);
-					oldFile.delete();
+					if(originalFileName != null && originalFileName.length() !=0) {
+						File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + articleNo + "\\" + originalFileName);
+						oldFile.delete();
+					} 
 				}
-				if(imageFileName == null || originalFileName == null) {
-					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + articleNo + "\\" + originalFileName);
-					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNo);
-					destDir.mkdirs();
 					
-					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-				}
+				
 				pt.print("<script> alert('Modified the article');"
 						+ " location.href='" + request.getContextPath() + 
 						"/board/viewArticle.do?articleNo=" + articleNo + "'; </script>");
@@ -267,7 +273,9 @@ public class BoardController extends HttpServlet {
 						articleMap.put(fileItem.getFieldName(), fileName);
 						File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
 						fileItem.write(uploadFile);
-					} 
+					} else {
+						articleMap.put(fileItem.getFieldName(), null);
+					}
 				}
 			}
 		} catch (Exception e) {

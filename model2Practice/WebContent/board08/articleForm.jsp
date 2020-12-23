@@ -45,8 +45,8 @@
 				<td><img id="preview" src="#" width=200 height=200/></td>
 			</tr>
 			<tr>
-				<td align = "right" valign="top">Id: </td>
-				<td colspan="2"><input type="text" size="50" maxlength="50" name="id"></td>
+				<td align = "center" valign="top">Id: </td>
+				<td><input type="text" size="15" maxlength="15" name="id"></td>
 			</tr>
 			<tr>
 				<td align = "right"></td>
