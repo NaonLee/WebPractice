@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING/DTO BEAN/EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<bean id="personService1" class="di_practice02.PersonServiceImpl">
+		<constructor-arg value="Leedo"/>
+	</bean>
+	
+	<bean id="personService2" class="di_practice02.PersonServiceImpl">
+		<constructor-arg value="Ryujin"/>
+		<constructor-arg value="20"/>
+	</bean>
+</beans>
