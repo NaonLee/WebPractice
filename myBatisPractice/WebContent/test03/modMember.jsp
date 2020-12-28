@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-	<form method="post" action="${contextPath}/mem4.do?action=insertMember2">
+	<form method="post" action="${contextPath}/mem4.do?action=updateMember">
 		<h1 class="text_center">Registration page</h1>
 		<table align="center">
 			<tr>

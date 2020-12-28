@@ -20,7 +20,8 @@
 			<td><b>Password</b></td>
 			<td><b>Name</b></td>
 			<td><b>Email</b></td>
-			<td><b>Joined date</b></td>
+			<td><b>Join date</b></td>
+			<td><b>DELETE</b></td>
 		</tr>
 		
 		<c:forEach var="member" items="${membersList}">
@@ -30,6 +31,7 @@
 				<td>${member.name}</td>
 				<td>${member.email}</td>
 				<td>${member.joinDate}</td>
+				<td><a href="${contextPath}/mem4.do?action=deleteMember&id=${member.id}">delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>
