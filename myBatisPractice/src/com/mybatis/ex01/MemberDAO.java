@@ -2,6 +2,7 @@ package com.mybatis.ex01;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -29,10 +30,11 @@ public class MemberDAO {
 		return sqlMapper;
 	}
 	
-	public List<MemberVO> selectAllMembers(){
+	public List<HashMap<String, String>> selectAllMembers(){
 		sqlMapper = getInstance();
 		SqlSession session = sqlMapper.openSession();
-		List<MemberVO> memlist = null;
+		//List<MemberVO> memlist = null;
+		List<HashMap<String, String>> memlist = null;
 		memlist = session.selectList("mapper.member.selectAllMemberList");
 		return memlist;
 	}

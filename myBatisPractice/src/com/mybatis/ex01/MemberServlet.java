@@ -1,6 +1,7 @@
 package com.mybatis.ex01;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +33,7 @@ public class MemberServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		MemberDAO dao = new MemberDAO();
-		List<MemberVO> membersList = dao.selectAllMembers();
+		List<HashMap<String, String>> membersList = dao.selectAllMembers();
 		request.setAttribute("membersList", membersList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("test01/listMembers.jsp");
 		dispatcher.forward(request, response);
