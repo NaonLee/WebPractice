@@ -35,4 +35,10 @@
 			SELECT * FROM t_member WHERE pwd=#{pwd}
 		]]>
 	</select>
+	
+	<insert id="insertMember" parameterType="memberVO">
+		<![CDATA[
+			INSERT INTO t_member(id, pwd, name, email) VALUES(#{id}, #{pwd}, #{name}, #{email})
+		]]>
+	</insert>
 </mapper>
