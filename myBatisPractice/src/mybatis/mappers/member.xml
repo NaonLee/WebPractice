@@ -10,10 +10,29 @@
 		<result property="email" column="email"/>
 		<result property="joinDate" column="joinDate"/>
 	</resultMap>
+	<!-- <resultMap type="java.util.HashMap" id="memResult">
+		<result property="id" column="id"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="joinDate" column="joinDate"/>
+	</resultMap> -->
 	
 	<select id="selectAllMemberList" resultMap="memResult">
 		<![CDATA[
 			SELECT * FROM t_member ORDER BY joinDate DESC
+		]]>
+	</select>
+	
+	<select id="selectMemberById" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM t_member WHERE id=#{id}
+		]]>
+	</select>
+	
+	<select id="selectMemberByPwd" resultMap="memResult" parameterType="String">
+		<![CDATA[
+			SELECT * FROM t_member WHERE pwd=#{pwd}
 		]]>
 	</select>
 </mapper>
