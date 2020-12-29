@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="mapper.account">
+   		<update id="updateBalance1">
+   			<![CDATA[
+   				UPDATE cust_account SET balance=balance-500000 WHERE accountNo='80-123-948'
+   			]]>
+   		</update>
+   		
+   		<update id="updateBalance2">
+   			<![CDATA[
+   				UPDATE cust_account SET balance=balance+500000 WHERE accountNo='77-532-228'
+   			]]>
+   		</update>
+   
+   </mapper>
