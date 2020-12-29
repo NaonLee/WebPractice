@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+	<resultMap id="memResult" type="memberVO">
+		<result property="id" column="id"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="joinDate" column="joinDate"/>
+	</resultMap>
+	<!-- <resultMap type="java.util.HashMap" id="memResult">
+		<result property="id" column="id"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="joinDate" column="joinDate"/>
+	</resultMap> -->
+	
+	<sql id="a">
+		<![CDATA[ SELECT * FROM t_member ]]>				<!-- <sql 태그와 <include>태그로 sql문 중복 제거 -->
+	</sql>
+	
+	<select id="selectAllMemberList" resultMap="memResult">
+		<![CDATA[
+			SELECT * FROM t_member ORDER BY joinDate DESC
+		]]>
+	</select>
+	
+	<select id="selectMemberById" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM t_member WHERE id=#{id}
+		]]>
+	</select>
+	
+	<select id="selectMemberByPwd" resultMap="memResult" parameterType="String">
+		<![CDATA[
+			SELECT * FROM t_member WHERE pwd=#{pwd}
+		]]>
+	</select>
+	
+	<insert id="insertMember" parameterType="memberVO">
+		<![CDATA[
+			INSERT INTO t_member(id, pwd, name, email) VALUES(#{id}, #{pwd}, #{name}, #{email})
+		]]>
+		
+	</insert>
+	
+	<insert id="insertMember2" parameterType="java.util.HashMap">
+		<![CDATA[
+			INSERT INTO t_member(id, pwd, name, email) VALUES(#{id}, #{pwd}, #{name}, #{email})
+		]]>
+	</insert>
+	
+	<update id="updateMember" parameterType="MemberVO">
+		<![CDATA[
+			UPDATE t_member SET pwd=#{pwd}, name=#{name}, email=#{email} WHERE id=#{id}
+		]]>
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		<![CDATA[
+			DELETE FROM t_member WHERE id=#{id}
+		]]>
+	</delete>
+	
+	<select id="searchMember" parameterType="memberVO" resultMap="memResult">
+		<include refid="a"/>															<!-- 미리 선언해둔 sql태그를 가져와 중복 재거 -->
+		<where>
+			<if test="name != '' and name != null">
+				name=#{name}
+			</if>
+			<if test="email != '' and email !=null">
+				email=#{email}
+			</if>
+		</where>
+		ORDER BY joinDate DESC
+	</select>
+	
+	<!-- <select id="searchMember" parameterType="memberVO" resultMap="memResult">
+		<![CDATA[
+			SELECT * FROM t_member
+		]]>
+		<where>
+			<choose>
+				<when test="name != '' and name != null and email != '' and email != null">
+					name=#{name} and email=#{email}
+				</when>
+				<when test="name != '' and name != null">
+					name=#{name}
+				</when>
+				<when test="email != '' and email != null">
+					email=#{email}
+				</when>
+			</choose>
+		</where>
+		ORDER BY joinDate DESC
+	</select> -->
+	
+	<select id="foreachSelect" resultMap="memResult" parameterType="java.util.Map"> <!--localhost:8090/myBatisPractice/mem4.do?action=foreachSelect  -->
+		<include refid="a"/>
+		WHERE name IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY joinDate DESC
+	</select>
+	
+	<!-- <insert id="foreachInsert" parameterType="java.util.Map">				오라클에서 insert문 반복 사용시 오류 발생
+	<![CDATA[
+		INSERT INTO t_member(id, pwd, name, email) VALUES
+	]]>
+		<foreach collection="list" item="item">
+			(#{item.id}, #{item.pwd}, #{item.name}, #{item.email})
+		</foreach>
+	</insert> -->
+	
+	<insert id="foreachInsert" parameterType="java.util.Map">
+		<foreach collection="list" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+			INTO t_member(id, pwd, name, email) 
+			VALUES (#{item.id}, #{item.pwd}, #{item.name}, #{item.email})
+		</foreach>
+	</insert>
+	
+	<!-- INSERT ALL INTO t_member(id,pwd,name,email) VALUES ('id','pwd','name','email') ... SELECT * FROM DUAL -->
+</mapper>
