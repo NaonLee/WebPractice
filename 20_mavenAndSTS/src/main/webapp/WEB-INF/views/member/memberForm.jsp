@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-	<form method="post"   action="${contextPath}/member/addMember.do">
+	<form method="post" action="${contextPath}/member/addMember.do">
 	<h1  class="text_center">Registration page</h1>
 	<table  align="center">
 	   <tr>

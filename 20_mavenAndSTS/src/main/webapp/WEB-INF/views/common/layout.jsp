@@ -41,7 +41,7 @@
 		border: 0px solid #bcbcbc;
 	}
 	#footer{
-		claer:both;
+		clear:both;
 		padding: 5px;
 		border: 0px solid #bcbcbc;
 		background-color: lightblue;
